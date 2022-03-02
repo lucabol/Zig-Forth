@@ -1,0 +1,64 @@
+            const token = findToken(word) orelse Token.notFound;
+  2310db:       f6 85 a1 fa ff ff 01    testb  $0x1,-0x55f(%rbp)
+  2310e2:       75 09                   jne    2310ed <shellLoop+0x38d>
+  2310e4:       c6 85 9f fa ff ff 02    movb   $0x2,-0x561(%rbp)
+  2310eb:       eb 0c                   jmp    2310f9 <shellLoop+0x399>
+  2310ed:       8a 85 a0 fa ff ff       mov    -0x560(%rbp),%al
+  2310f3:       88 85 9f fa ff ff       mov    %al,-0x561(%rbp)
+/home/lucabol/dev/zig-forth/src/main.zig:65
+            execToken(&vm, token);
+  2310f9:       8a 85 9f fa ff ff       mov    -0x561(%rbp),%al
+  2310ff:       48 8d 8d 58 fb ff ff    lea    -0x4a8(%rbp),%rcx
+  231106:       48 89 4d d8             mov    %rcx,-0x28(%rbp)
+  23110a:       88 45 d7                mov    %al,-0x29(%rbp)
+execToken():
+/home/lucabol/dev/zig-forth/src/main.zig:32
+        if (enumValue == tok) {
+  23110d:       31 c0                   xor    %eax,%eax
+  23110f:       3a 45 d7                cmp    -0x29(%rbp),%al
+  231112:       75 50                   jne    231164 <shellLoop+0x404>
+/home/lucabol/dev/zig-forth/src/main.zig:34
+            _ = @call(empty, @field(Vm, "op_" ++ @tagName(enumValue)), .{vm});
+  231114:       48 8b 45 d8             mov    -0x28(%rbp),%rax
+  231118:       48 89 45 e0             mov    %rax,-0x20(%rbp)
+Vm.op_double():
+/home/lucabol/dev/zig-forth/src/main.zig:7
+        this.state = this.state * 2;
+  23111c:       48 8b 45 e0             mov    -0x20(%rbp),%rax
+  231120:       48 89 85 58 fa ff ff    mov    %rax,-0x5a8(%rbp)
+  231127:       48 8b 4d e0             mov    -0x20(%rbp),%rcx
+  23112b:       b8 02 00 00 00          mov    $0x2,%eax
+  231130:       0f af 01                imul   (%rcx),%eax
+  231133:       89 85 60 fa ff ff       mov    %eax,-0x5a0(%rbp)
+  231139:       0f 90 c0                seto   %al
+  23113c:       70 02                   jo     231140 <shellLoop+0x3e0>
+  23113e:       eb 13                   jmp    231153 <shellLoop+0x3f3>
+  231140:       48 bf 68 1f 20 00 00 00 00 00   movabs $0x201f68,%rdi
+  23114a:       31 c0                   xor    %eax,%eax
+  23114c:       89 c6                   mov    %eax,%esi
+  23114e:       e8 fd 32 fd ff          callq  204450 <std.builtin.default_panic>
+  231153:       48 8b 85 58 fa ff ff    mov    -0x5a8(%rbp),%rax
+  23115a:       8b 8d 60 fa ff ff       mov    -0x5a0(%rbp),%ecx
+  231160:       89 08                   mov    %ecx,(%rax)
+execToken():
+/home/lucabol/dev/zig-forth/src/main.zig:32
+        if (enumValue == tok) {
+  231162:       eb 02                   jmp    231166 <shellLoop+0x406>
+  231164:       eb 00                   jmp    231166 <shellLoop+0x406>
+  231166:       b0 01                   mov    $0x1,%al
+  231168:       3a 45 d7                cmp    -0x29(%rbp),%al
+  23116b:       75 4c                   jne    2311b9 <shellLoop+0x459>
+/home/lucabol/dev/zig-forth/src/main.zig:34
+            _ = @call(empty, @field(Vm, "op_" ++ @tagName(enumValue)), .{vm});
+  23116d:       48 8b 45 d8             mov    -0x28(%rbp),%rax
+  231171:       48 89 45 e8             mov    %rax,-0x18(%rbp)
+Vm.op_plus1():
+/home/lucabol/dev/zig-forth/src/main.zig:10
+        this.state = this.state + 1;
+  231175:       48 8b 45 e8             mov    -0x18(%rbp),%rax
+  231179:       48 89 85 48 fa ff ff    mov    %rax,-0x5b8(%rbp)
+  231180:       48 8b 45 e8             mov    -0x18(%rbp),%rax
+  231184:       8b 00                   mov    (%rax),%eax
+  231186:       ff c0                   inc    %eax
+  231188:       89 85 54 fa ff ff       mov    %eax,-0x5ac(%rbp)
+  23118e:       0f 90 c0                seto   %al
