@@ -1,9 +1,24 @@
-// ## Test
+ ## Test
 
-// A test
+```zig
+
+
+
+```
+
+ A test
+
+```zig
+
 const std = @import("std");
 
-// Another test
+
+```
+
+ Another test
+
+```zig
+
 const Vm = struct {
     state: i32 = 0,
 
@@ -47,21 +62,51 @@ fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
 
     while (true) {
 
-        // Prompt
+
+```
+
+ Prompt
+
+```zig
+
         try stdout.print("> ", .{});
 
-        // Read STDIN into buffer
+
+```
+
+ Read STDIN into buffer
+
+```zig
+
         var input_str = (try stdin.readUntilDelimiterOrEof(input_buffer[0..], '\n')) orelse {
-            // No input, probably CTRL-d (EOF). Print a newline and exit!
+
+```
+
+ No input, probably CTRL-d (EOF). Print a newline and exit!
+
+```zig
+
             try stdout.print("\n", .{});
             return;
         };
 
-        // Don't do anything for zero-length input (user just hit Enter).
+
+```
+
+ Don't do anything for zero-length input (user just hit Enter).
+
+```zig
+
         if (input_str.len == 0) continue;
 
-        // Split by a single space. The returned SplitIterator must be var because
-        // it has mutable internal state.
+
+```
+
+ Split by a single space. The returned SplitIterator must be var because
+ it has mutable internal state.
+
+```zig
+
         var words = std.mem.tokenize(u8, input_str, " ");
 
         while (words.next()) |word| {
@@ -102,3 +147,5 @@ fn GenerateTokenEnumType(comptime T: type) type {
         },
     });
 }
+
+```
