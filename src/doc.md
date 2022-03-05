@@ -3,7 +3,6 @@
 ```zig
 
 
-
 ```
 
  A test
@@ -11,7 +10,6 @@
 ```zig
 
 const std = @import("std");
-
 
 ```
 
@@ -62,7 +60,6 @@ fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
 
     while (true) {
 
-
 ```
 
  Prompt
@@ -71,7 +68,6 @@ fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
 
         try stdout.print("> ", .{});
 
-
 ```
 
  Read STDIN into buffer
@@ -79,7 +75,6 @@ fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
 ```zig
 
         var input_str = (try stdin.readUntilDelimiterOrEof(input_buffer[0..], '\n')) orelse {
-
 ```
 
  No input, probably CTRL-d (EOF). Print a newline and exit!
@@ -90,7 +85,6 @@ fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
             return;
         };
 
-
 ```
 
  Don't do anything for zero-length input (user just hit Enter).
@@ -98,7 +92,6 @@ fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
 ```zig
 
         if (input_str.len == 0) continue;
-
 
 ```
 
@@ -147,5 +140,4 @@ fn GenerateTokenEnumType(comptime T: type) type {
         },
     });
 }
-
 ```
