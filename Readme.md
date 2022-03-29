@@ -1,3 +1,5 @@
+ * Please see `blog` branch for the blog post source code *
+
  While writing my C# Forth, I grew unhappy about the conceptual repetition in the code.
  To add a new Forth word, you have to add a new value to the enumerator that represents the opcode,
  add a new member to a hashtable that maps it to a string (what the user types) and finally implement the action
