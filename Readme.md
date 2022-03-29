@@ -1,4 +1,4 @@
- * Please see `blog` branch for the blog post source code *
+ ## Please see `blog` branch for the blog post source code
 
  While writing my C# Forth, I grew unhappy about the conceptual repetition in the code.
  To add a new Forth word, you have to add a new value to the enumerator that represents the opcode,
