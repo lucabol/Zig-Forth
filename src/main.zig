@@ -20,7 +20,7 @@ const Ops = struct {
     }
 };
 
-fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
+inline fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
     const max_input = 1024;
     var input_buffer: [max_input]u8 = undefined;
     var vm = Vm{
@@ -92,5 +92,5 @@ pub fn main() !u8 {
 
     try shellLoop(stdin, stdout);
 
-    return 0; // We either crash or we are fine.
+    return 0;
 }
