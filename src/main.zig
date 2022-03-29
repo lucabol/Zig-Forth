@@ -1,26 +1,32 @@
 const std = @import("std");
 
-const Vm = struct { state: i32 = 0 };
+const Vm = struct { state: i32 = 0, in: std.fs.File.Reader, out: std.fs.File.Writer };
 
 const Ops = struct {
-    inline fn double(this: *Vm) void {
-        this.state = this.state * 2;
+    inline fn double(vm: *Vm) !void {
+        vm.state *= 2;
     }
-    inline fn plus1(this: *Vm) void {
-        this.state = this.state + 1;
+    inline fn plus1(vm: *Vm) !void {
+        vm.state += 1;
     }
-    inline fn notFound(_: *Vm) void {
-        std.log.info("{s}", .{"Word not found."});
+    inline fn notFound(vm: *Vm) !void {
+        try vm.out.print("{s}\n", .{"Word not found."});
     }
-    inline fn bye(_: *Vm) void {
+    inline fn bye(_: *Vm) !void {
         std.process.exit(0);
+    }
+    inline fn @"."(vm: *Vm) !void {
+        try vm.out.print("{d} ", .{vm.state});
     }
 };
 
 fn shellLoop(stdin: std.fs.File.Reader, stdout: std.fs.File.Writer) !void {
     const max_input = 1024;
     var input_buffer: [max_input]u8 = undefined;
-    var vm = Vm{};
+    var vm = Vm{
+        .in = stdin,
+        .out = stdout,
+    };
 
     while (true) {
         try stdout.print("> ", .{});
@@ -54,7 +60,7 @@ inline fn execToken(vm: *Vm, tok: Token) void {
         const enumValue = @field(Token, enField.name);
         if (enumValue == tok) {
             const empty = .{};
-            _ = @call(empty, @field(Ops, @tagName(enumValue)), .{vm});
+            _ = @call(empty, @field(Ops, @tagName(enumValue)), .{vm}) catch unreachable;
         }
     }
 }
